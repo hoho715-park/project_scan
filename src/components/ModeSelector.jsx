@@ -60,12 +60,12 @@ export default function ModeSelector({ onSelectMode }) {
 
         .mode-selector h2 {
           font-size: 2rem;
-          color: #166534;
+          color: var(--gray-800, #1e293b);
           margin-bottom: 12px;
         }
 
         .mode-description {
-          color: #666;
+          color: var(--gray-500, #64748b);
           font-size: 1.1rem;
           margin-bottom: 40px;
         }
@@ -85,20 +85,20 @@ export default function ModeSelector({ onSelectMode }) {
           cursor: pointer;
           transition: all 0.3s ease;
           border: 3px solid transparent;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
 
         .mode-card:hover {
           transform: translateY(-8px);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
         }
 
         .mode-card:first-child:hover {
-          border-color: #22c55e;
+          border-color: var(--primary, #10b981);
         }
 
         .mode-card:last-child:hover {
-          border-color: #3b82f6;
+          border-color: var(--secondary, #6366f1);
         }
 
         .mode-icon {
@@ -113,21 +113,21 @@ export default function ModeSelector({ onSelectMode }) {
         }
 
         .mode-icon.code {
-          background: linear-gradient(135deg, #22c55e, #16a34a);
+          background: linear-gradient(135deg, var(--primary, #10b981), var(--primary-dark, #059669));
         }
 
         .mode-icon.image {
-          background: linear-gradient(135deg, #3b82f6, #2563eb);
+          background: linear-gradient(135deg, var(--secondary, #6366f1), var(--secondary-dark, #4f46e5));
         }
 
         .mode-card h3 {
           font-size: 1.4rem;
-          color: #1a1a2e;
+          color: var(--gray-800, #1e293b);
           margin-bottom: 12px;
         }
 
         .mode-card > p {
-          color: #666;
+          color: var(--gray-500, #64748b);
           font-size: 0.95rem;
           line-height: 1.6;
           margin-bottom: 20px;
@@ -142,9 +142,9 @@ export default function ModeSelector({ onSelectMode }) {
 
         .mode-features li {
           padding: 8px 0;
-          color: #555;
+          color: var(--gray-600, #475569);
           font-size: 0.9rem;
-          border-bottom: 1px solid #f0f0f0;
+          border-bottom: 1px solid var(--gray-100, #f1f5f9);
           display: flex;
           align-items: center;
           gap: 8px;
@@ -152,12 +152,12 @@ export default function ModeSelector({ onSelectMode }) {
 
         .mode-features li::before {
           content: "✓";
-          color: #22c55e;
+          color: var(--primary, #10b981);
           font-weight: bold;
         }
 
         .mode-card:last-child .mode-features li::before {
-          color: #3b82f6;
+          color: var(--secondary, #6366f1);
         }
 
         .mode-btn {
@@ -176,12 +176,12 @@ export default function ModeSelector({ onSelectMode }) {
         }
 
         .mode-card:first-child .mode-btn {
-          background: linear-gradient(135deg, #22c55e, #16a34a);
+          background: linear-gradient(135deg, var(--primary, #10b981), var(--primary-dark, #059669));
           color: white;
         }
 
         .mode-card:last-child .mode-btn {
-          background: linear-gradient(135deg, #3b82f6, #2563eb);
+          background: linear-gradient(135deg, var(--secondary, #6366f1), var(--secondary-dark, #4f46e5));
           color: white;
         }
 

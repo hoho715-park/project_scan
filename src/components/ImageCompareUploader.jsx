@@ -202,7 +202,8 @@ export default function ImageCompareUploader({
           background: white;
           border-radius: 16px;
           padding: 24px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+          border: 1px solid var(--gray-200, #e2e8f0);
         }
 
         .upload-section h3 {
@@ -210,56 +211,56 @@ export default function ImageCompareUploader({
           align-items: center;
           gap: 8px;
           font-size: 1.25rem;
-          color: #1a1a2e;
+          color: var(--gray-800, #1e293b);
           margin-bottom: 8px;
         }
 
         .upload-section > p {
-          color: #666;
+          color: var(--gray-500, #64748b);
           font-size: 0.9rem;
           margin-bottom: 16px;
         }
 
         .upload-zone {
-          border: 2px dashed #3b82f6;
+          border: 2px dashed var(--secondary, #6366f1);
           border-radius: 12px;
           padding: 40px 20px;
           text-align: center;
           cursor: pointer;
           transition: all 0.3s ease;
-          background: #eff6ff;
+          background: var(--secondary-bg, #eef2ff);
         }
 
         .upload-zone.reference {
-          border-color: #22c55e;
-          background: #f0fdf4;
+          border-color: var(--primary, #10b981);
+          background: var(--primary-bg, #ecfdf5);
         }
 
         .upload-zone:hover,
         .upload-zone.dragging {
-          background: #dbeafe;
-          border-color: #2563eb;
+          background: #e0e7ff;
+          border-color: var(--secondary-dark, #4f46e5);
         }
 
         .upload-zone.reference:hover,
         .upload-zone.reference.dragging {
-          background: #dcfce7;
-          border-color: #16a34a;
+          background: #d1fae5;
+          border-color: var(--primary-dark, #059669);
         }
 
         .upload-zone .upload-icon {
-          color: #22c55e;
+          color: var(--primary, #10b981);
           margin-bottom: 16px;
         }
 
         .upload-zone p {
-          color: #333;
+          color: var(--gray-700, #334155);
           margin-bottom: 4px;
         }
 
         .upload-zone span {
           font-size: 0.85rem;
-          color: #888;
+          color: var(--gray-400, #94a3b8);
         }
 
         .preview-box {
@@ -271,7 +272,7 @@ export default function ImageCompareUploader({
           max-width: 100%;
           max-height: 250px;
           border-radius: 8px;
-          border: 2px solid #22c55e;
+          border: 2px solid var(--primary, #10b981);
         }
 
         .preview-box .remove-btn {
@@ -293,7 +294,7 @@ export default function ImageCompareUploader({
         .preview-box .file-name {
           margin-top: 8px;
           font-size: 0.85rem;
-          color: #666;
+          color: var(--gray-500, #64748b);
         }
 
         .projects-grid {
@@ -311,7 +312,7 @@ export default function ImageCompareUploader({
 
         .project-image-card:hover {
           transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .card-header {
@@ -345,7 +346,7 @@ export default function ImageCompareUploader({
           background: none;
           border: none;
           cursor: pointer;
-          color: #999;
+          color: var(--gray-400, #94a3b8);
           padding: 2px;
         }
 
@@ -363,7 +364,7 @@ export default function ImageCompareUploader({
         .project-image-card .file-name {
           margin-top: 8px;
           font-size: 0.75rem;
-          color: #888;
+          color: var(--gray-400, #94a3b8);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -378,7 +379,7 @@ export default function ImageCompareUploader({
         }
 
         .upload-zone.project svg {
-          color: #3b82f6;
+          color: var(--secondary, #6366f1);
           margin-bottom: 8px;
         }
 

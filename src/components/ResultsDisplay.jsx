@@ -286,7 +286,7 @@ function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
         }
 
         .expand-btn {
-          background: #f0fdf4;
+          background: var(--gray-100, #f1f5f9);
           border: none;
           border-radius: 50%;
           width: 36px;
@@ -296,17 +296,17 @@ function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
           justify-content: center;
           cursor: pointer;
           transition: background 0.2s ease;
-          color: #166534;
+          color: var(--gray-600, #475569);
         }
 
         .expand-btn:hover {
-          background: #dcfce7;
+          background: var(--gray-200, #e2e8f0);
         }
 
         .result-details {
           padding: 0 20px 20px;
-          border-top: 1px solid #e0f2e9;
-          background: #f0fdf4;
+          border-top: 1px solid var(--gray-200, #e2e8f0);
+          background: var(--gray-50, #f8fafc);
         }
 
         .result-details h5 {
@@ -314,7 +314,7 @@ function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
           align-items: center;
           gap: 8px;
           margin: 16px 0 12px;
-          color: #166534;
+          color: var(--gray-700, #334155);
           font-size: 1rem;
         }
 
@@ -326,8 +326,8 @@ function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
           max-width: 100%;
           max-height: 300px;
           border-radius: 12px;
-          border: 2px solid #dcfce7;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          border: 2px solid var(--gray-200, #e2e8f0);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .breakdown-list {
@@ -339,6 +339,7 @@ function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
           background: white;
           padding: 12px;
           border-radius: 8px;
+          border: 1px solid var(--gray-100, #f1f5f9);
         }
 
         .breakdown-header {
@@ -351,17 +352,17 @@ function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
         .breakdown-title {
           flex: 1;
           font-weight: 500;
-          color: #333;
+          color: var(--gray-800, #1e293b);
         }
 
         .breakdown-score {
           font-weight: 600;
-          color: #666;
+          color: var(--gray-600, #475569);
         }
 
         .breakdown-bar-container {
           height: 6px;
-          background: #e0f2e9;
+          background: var(--gray-200, #e2e8f0);
           border-radius: 3px;
           overflow: hidden;
           margin-bottom: 6px;
@@ -375,7 +376,7 @@ function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
 
         .breakdown-details {
           font-size: 0.85rem;
-          color: #666;
+          color: var(--gray-500, #64748b);
           margin: 0;
         }
 
@@ -394,19 +395,20 @@ function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
           padding: 12px;
           border-radius: 8px;
           text-align: center;
+          border: 1px solid var(--gray-100, #f1f5f9);
         }
 
         .summary-label {
           display: block;
           font-size: 0.8rem;
-          color: #888;
+          color: var(--gray-400, #94a3b8);
           margin-bottom: 4px;
         }
 
         .summary-value {
           font-size: 1.1rem;
           font-weight: 600;
-          color: #166534;
+          color: var(--primary-dark, #059669);
         }
       `}</style>
     </div>
@@ -467,7 +469,8 @@ export default function ResultsDisplay({ results, originalProjects }) {
           background: white;
           border-radius: 20px;
           padding: 32px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+          border: 1px solid var(--gray-200, #e2e8f0);
         }
 
         .results-header {
@@ -477,12 +480,12 @@ export default function ResultsDisplay({ results, originalProjects }) {
 
         .results-header h2 {
           font-size: 1.8rem;
-          color: #166534;
+          color: var(--primary-dark, #059669);
           margin-bottom: 8px;
         }
 
         .results-header p {
-          color: #666;
+          color: var(--gray-500, #64748b);
         }
 
         .reference-info {
@@ -490,8 +493,8 @@ export default function ResultsDisplay({ results, originalProjects }) {
           align-items: center;
           gap: 16px;
           padding: 16px;
-          background: linear-gradient(135deg, #dcfce720, #a7f3d020);
-          border: 2px solid #dcfce7;
+          background: linear-gradient(135deg, var(--primary-bg, #ecfdf5), #d1fae520);
+          border: 2px solid #d1fae5;
           border-radius: 12px;
           margin-bottom: 24px;
         }
@@ -501,23 +504,23 @@ export default function ResultsDisplay({ results, originalProjects }) {
           height: 80px;
           object-fit: cover;
           border-radius: 8px;
-          border: 2px solid #22c55e;
+          border: 2px solid var(--primary, #10b981);
         }
 
         .reference-info h4 {
           margin: 0 0 4px;
-          color: #166534;
+          color: var(--primary-dark, #059669);
         }
 
         .reference-info p {
           margin: 0;
           font-size: 0.9rem;
-          color: #666;
+          color: var(--gray-500, #64748b);
         }
 
         .dimensions {
           font-size: 0.8rem;
-          color: #888;
+          color: var(--gray-400, #94a3b8);
         }
 
         .projects-results {

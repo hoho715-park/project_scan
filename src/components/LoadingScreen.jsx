@@ -139,9 +139,10 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
           border-radius: 24px;
           padding: 48px;
           text-align: center;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
           max-width: 480px;
           width: 90%;
+          border: 1px solid var(--gray-200, #e2e8f0);
         }
 
         .loading-icon-container {
@@ -158,8 +159,8 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
           position: absolute;
           width: 100%;
           height: 100%;
-          border: 4px solid #e0f2e9;
-          border-top-color: var(--primary-dark, #22c55e);
+          border: 4px solid var(--gray-200, #e2e8f0);
+          border-top-color: var(--secondary, #6366f1);
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
@@ -169,7 +170,7 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
         }
 
         .loading-icon {
-          color: var(--primary-dark, #22c55e);
+          color: var(--secondary, #6366f1);
           animation: pulse 2s ease-in-out infinite;
         }
 
@@ -180,12 +181,12 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
 
         .loading-card h2 {
           font-size: 1.5rem;
-          color: #1a1a2e;
+          color: var(--gray-800, #1e293b);
           margin-bottom: 8px;
         }
 
         .loading-subtitle {
-          color: #666;
+          color: var(--gray-500, #64748b);
           margin-bottom: 32px;
         }
 
@@ -202,27 +203,27 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
           gap: 12px;
           padding: 12px 16px;
           border-radius: 12px;
-          background: #f5f5f5;
-          color: #999;
+          background: var(--gray-100, #f1f5f9);
+          color: var(--gray-400, #94a3b8);
           transition: all 0.4s ease;
         }
 
         .loading-step.active {
-          background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-          color: var(--primary-darker, #16a34a);
+          background: linear-gradient(135deg, var(--secondary-bg, #eef2ff), #e0e7ff);
+          color: var(--secondary-dark, #4f46e5);
           font-weight: 500;
           animation: stepPulse 1.5s ease-in-out infinite;
         }
 
         @keyframes stepPulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3); }
-          50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.3); }
+          50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
         }
 
         .loading-step.complete {
-          background: #f0fdf4;
-          color: var(--primary-dark, #22c55e);
-          border: 1px solid #bbf7d0;
+          background: var(--primary-bg, #ecfdf5);
+          color: var(--primary-dark, #059669);
+          border: 1px solid var(--primary-lighter, #6ee7b7);
         }
 
         .step-icon {
@@ -238,12 +239,12 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
         }
 
         .loading-step.active .step-icon {
-          background: var(--primary-dark, #22c55e);
+          background: var(--secondary, #6366f1);
           color: white;
         }
 
         .loading-step.complete .step-icon {
-          background: var(--primary-dark, #22c55e);
+          background: var(--primary, #10b981);
           color: white;
         }
 
@@ -253,7 +254,7 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
         }
 
         .check-mark {
-          color: var(--primary-dark, #22c55e);
+          color: var(--primary, #10b981);
           animation: checkAppear 0.3s ease-out;
         }
 
@@ -277,14 +278,14 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
         .progress-bar {
           flex: 1;
           height: 8px;
-          background: #e0f2e9;
+          background: var(--gray-200, #e2e8f0);
           border-radius: 4px;
           overflow: hidden;
         }
 
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, var(--primary, #4ade80), var(--primary-dark, #22c55e));
+          background: linear-gradient(90deg, var(--secondary-light, #818cf8), var(--secondary, #6366f1));
           border-radius: 4px;
           transition: width 0.3s ease;
         }
@@ -292,7 +293,7 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
         .progress-text {
           font-size: 0.9rem;
           font-weight: 600;
-          color: var(--primary-dark, #22c55e);
+          color: var(--secondary, #6366f1);
           min-width: 45px;
         }
       `}</style>

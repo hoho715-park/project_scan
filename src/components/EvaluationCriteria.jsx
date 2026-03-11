@@ -148,7 +148,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(15, 23, 42, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -163,7 +163,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             max-width: 800px;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
           }
 
           .modal-header {
@@ -171,7 +171,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             align-items: center;
             justify-content: space-between;
             padding: 24px 32px;
-            border-bottom: 1px solid #e0f2e9;
+            border-bottom: 1px solid var(--gray-200, #e2e8f0);
             position: sticky;
             top: 0;
             background: white;
@@ -183,7 +183,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             align-items: center;
             gap: 12px;
             font-size: 1.5rem;
-            color: #166534;
+            color: var(--secondary-dark, #4f46e5);
             margin: 0;
           }
 
@@ -192,12 +192,12 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             border: none;
             cursor: pointer;
             padding: 8px;
-            color: #666;
+            color: var(--gray-400, #94a3b8);
             transition: color 0.2s ease;
           }
 
           .close-btn:hover {
-            color: #333;
+            color: var(--gray-600, #475569);
           }
 
           .modal-body {
@@ -217,17 +217,17 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             align-items: center;
             gap: 8px;
             margin-bottom: 12px;
-            color: #22c55e;
+            color: var(--secondary, #6366f1);
           }
 
           .section-header h3 {
             margin: 0;
             font-size: 1.2rem;
-            color: #166534;
+            color: var(--gray-800, #1e293b);
           }
 
           .criteria-section > p {
-            color: #555;
+            color: var(--gray-600, #475569);
             line-height: 1.7;
           }
 
@@ -254,13 +254,13 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .criteria-card.structure {
-            background: #f0fdf4;
-            border-color: #22c55e;
+            background: var(--primary-bg, #ecfdf5);
+            border-color: var(--primary, #10b981);
           }
 
           .criteria-card.component {
             background: #fffbeb;
-            border-color: #f59e0b;
+            border-color: var(--accent, #f59e0b);
           }
 
           .card-icon {
@@ -283,22 +283,22 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .structure .card-icon {
-            background: #22c55e;
+            background: var(--primary, #10b981);
           }
 
           .component .card-icon {
-            background: #f59e0b;
+            background: var(--accent, #f59e0b);
           }
 
           .criteria-card h4 {
             margin: 0 0 8px;
             font-size: 1.1rem;
-            color: #333;
+            color: var(--gray-800, #1e293b);
           }
 
           .criteria-card > p {
             font-size: 0.9rem;
-            color: #555;
+            color: var(--gray-600, #475569);
             margin-bottom: 12px;
           }
 
@@ -309,13 +309,13 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
 
           .criteria-card li {
             font-size: 0.85rem;
-            color: #444;
+            color: var(--gray-700, #334155);
             margin-bottom: 4px;
           }
 
           .evaluation-method {
             font-size: 0.8rem;
-            color: #666;
+            color: var(--gray-500, #64748b);
             background: rgba(255, 255, 255, 0.7);
             padding: 8px 12px;
             border-radius: 6px;
@@ -328,7 +328,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .file-badge {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, var(--secondary, #6366f1), var(--secondary-dark, #4f46e5));
             color: white;
             padding: 6px 14px;
             border-radius: 20px;
@@ -337,15 +337,15 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .criteria-section.note {
-            background: #f0fdf4;
+            background: var(--gray-100, #f1f5f9);
             padding: 20px;
             border-radius: 12px;
-            border: 1px solid #dcfce7;
+            border: 1px solid var(--gray-200, #e2e8f0);
           }
 
           .criteria-section.note h3 {
             margin: 0 0 12px;
-            color: #166534;
+            color: var(--gray-700, #334155);
             font-size: 1rem;
           }
 
@@ -355,7 +355,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .criteria-section.note li {
-            color: #555;
+            color: var(--gray-600, #475569);
             font-size: 0.9rem;
             margin-bottom: 6px;
           }

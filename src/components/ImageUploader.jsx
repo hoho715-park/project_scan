@@ -105,7 +105,8 @@ export default function ImageUploader({ onImageSelect, selectedImage }) {
           background: white;
           border-radius: 16px;
           padding: 24px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+          border: 1px solid var(--gray-200, #e2e8f0);
         }
 
         .uploader-title {
@@ -113,46 +114,46 @@ export default function ImageUploader({ onImageSelect, selectedImage }) {
           align-items: center;
           gap: 8px;
           font-size: 1.25rem;
-          color: #1a1a2e;
+          color: var(--gray-800, #1e293b);
           margin-bottom: 8px;
         }
 
         .uploader-description {
-          color: #666;
+          color: var(--gray-500, #64748b);
           font-size: 0.9rem;
           margin-bottom: 16px;
         }
 
         .upload-zone {
-          border: 2px dashed var(--primary-dark, #22c55e);
+          border: 2px dashed var(--primary, #10b981);
           border-radius: 12px;
           padding: 40px 20px;
           text-align: center;
           cursor: pointer;
           transition: all 0.3s ease;
-          background: #f0fdf4;
+          background: var(--primary-bg, #ecfdf5);
         }
 
         .upload-zone:hover,
         .upload-zone.dragging {
-          border-color: var(--secondary, #059669);
-          background: #dcfce7;
+          border-color: var(--primary-dark, #059669);
+          background: #d1fae5;
         }
 
         .upload-icon {
-          color: var(--primary-dark, #22c55e);
+          color: var(--primary, #10b981);
           margin-bottom: 16px;
         }
 
         .upload-text {
           font-size: 1rem;
-          color: #333;
+          color: var(--gray-700, #334155);
           margin-bottom: 8px;
         }
 
         .upload-hint {
           font-size: 0.85rem;
-          color: #888;
+          color: var(--gray-400, #94a3b8);
         }
 
         .preview-container {
@@ -164,7 +165,7 @@ export default function ImageUploader({ onImageSelect, selectedImage }) {
           max-width: 100%;
           max-height: 300px;
           border-radius: 8px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .remove-button {
@@ -174,25 +175,25 @@ export default function ImageUploader({ onImageSelect, selectedImage }) {
           display: flex;
           align-items: center;
           gap: 4px;
-          background: rgba(255, 255, 255, 0.9);
+          background: rgba(255, 255, 255, 0.95);
           border: none;
           border-radius: 6px;
           padding: 6px 12px;
           cursor: pointer;
           font-size: 0.85rem;
-          color: #e74c3c;
+          color: #ef4444;
           transition: all 0.2s ease;
         }
 
         .remove-button:hover {
-          background: #e74c3c;
+          background: #ef4444;
           color: white;
         }
 
         .file-name {
           margin-top: 12px;
           font-size: 0.85rem;
-          color: #666;
+          color: var(--gray-500, #64748b);
         }
       `}</style>
     </div>

@@ -241,7 +241,8 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
           background: white;
           border-radius: 16px;
           padding: 24px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+          border: 1px solid var(--gray-200, #e2e8f0);
         }
 
         .uploader-title {
@@ -249,12 +250,12 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
           align-items: center;
           gap: 8px;
           font-size: 1.25rem;
-          color: #1a1a2e;
+          color: var(--gray-800, #1e293b);
           margin-bottom: 8px;
         }
 
         .uploader-description {
-          color: #666;
+          color: var(--gray-500, #64748b);
           font-size: 0.9rem;
           margin-bottom: 16px;
         }
@@ -274,7 +275,7 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
 
         .project-card:hover {
           transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .project-header {
@@ -314,18 +315,18 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
           border: none;
           cursor: pointer;
           padding: 4px;
-          color: #999;
+          color: var(--gray-400, #94a3b8);
           transition: color 0.2s ease;
         }
 
         .remove-project-btn:hover {
-          color: #e74c3c;
+          color: #ef4444;
         }
 
         .project-filename {
           margin-top: 4px;
           font-size: 0.8rem;
-          color: #888;
+          color: var(--gray-400, #94a3b8);
           margin-left: 38px;
         }
 
@@ -339,18 +340,18 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
           align-items: center;
           gap: 8px;
           padding: 10px 14px;
-          border: 2px dashed rgba(0, 0, 0, 0.2);
+          border: 2px dashed var(--gray-300, #cbd5e1);
           border-radius: 8px;
           cursor: pointer;
           transition: all 0.2s ease;
-          color: #666;
+          color: var(--gray-500, #64748b);
           font-size: 0.85rem;
         }
 
         .image-upload-zone:hover {
-          border-color: var(--primary-dark, #22c55e);
-          color: var(--primary-dark, #22c55e);
-          background: rgba(34, 197, 94, 0.05);
+          border-color: var(--secondary, #6366f1);
+          color: var(--secondary, #6366f1);
+          background: var(--secondary-bg, #eef2ff);
         }
 
         .image-preview-container {
@@ -362,7 +363,7 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
           max-width: 100%;
           max-height: 120px;
           border-radius: 8px;
-          border: 2px solid rgba(0, 0, 0, 0.1);
+          border: 2px solid var(--gray-200, #e2e8f0);
         }
 
         .remove-image-btn {
@@ -372,7 +373,7 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
           width: 24px;
           height: 24px;
           border-radius: 50%;
-          background: #e74c3c;
+          background: #ef4444;
           color: white;
           border: none;
           cursor: pointer;
@@ -387,43 +388,43 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
         }
 
         .upload-zone {
-          border: 2px dashed var(--primary-dark, #22c55e);
+          border: 2px dashed var(--secondary, #6366f1);
           border-radius: 12px;
           padding: 30px 20px;
           text-align: center;
           cursor: pointer;
           transition: all 0.3s ease;
-          background: #f0fdf4;
+          background: var(--secondary-bg, #eef2ff);
         }
 
         .upload-zone:hover,
         .upload-zone.dragging {
-          border-color: var(--secondary, #059669);
-          background: #dcfce7;
+          border-color: var(--secondary-dark, #4f46e5);
+          background: #e0e7ff;
         }
 
         .upload-icon {
-          color: var(--primary-dark, #22c55e);
+          color: var(--secondary, #6366f1);
           margin-bottom: 12px;
         }
 
         .upload-text {
           font-size: 0.95rem;
-          color: #333;
+          color: var(--gray-700, #334155);
           margin-bottom: 6px;
         }
 
         .upload-hint {
           font-size: 0.8rem;
-          color: #888;
+          color: var(--gray-400, #94a3b8);
         }
 
         .max-reached {
           text-align: center;
           padding: 16px;
-          background: #f0fdf4;
+          background: var(--gray-100, #f1f5f9);
           border-radius: 8px;
-          color: #166534;
+          color: var(--gray-600, #475569);
           font-size: 0.9rem;
         }
       `}</style>

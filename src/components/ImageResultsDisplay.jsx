@@ -252,7 +252,7 @@ function ProjectResult({ project, index, isExpanded, onToggle, referenceImage })
         }
 
         .expand-btn {
-          background: #f0fdf4;
+          background: var(--gray-100, #f1f5f9);
           border: none;
           border-radius: 50%;
           width: 36px;
@@ -262,11 +262,11 @@ function ProjectResult({ project, index, isExpanded, onToggle, referenceImage })
           justify-content: center;
           cursor: pointer;
           transition: background 0.2s ease;
-          color: #166534;
+          color: var(--gray-600, #475569);
         }
 
         .expand-btn:hover {
-          background: #dcfce7;
+          background: var(--gray-200, #e2e8f0);
         }
 
         .result-details {
@@ -447,7 +447,8 @@ export default function ImageResultsDisplay({ results, referenceImage }) {
           background: white;
           border-radius: 20px;
           padding: 32px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+          border: 1px solid var(--gray-200, #e2e8f0);
         }
 
         .results-header {
@@ -457,12 +458,12 @@ export default function ImageResultsDisplay({ results, referenceImage }) {
 
         .results-header h2 {
           font-size: 1.8rem;
-          color: #1e40af;
+          color: var(--secondary-dark, #4f46e5);
           margin-bottom: 8px;
         }
 
         .results-header p {
-          color: #666;
+          color: var(--gray-500, #64748b);
         }
 
         .reference-info {
@@ -470,8 +471,8 @@ export default function ImageResultsDisplay({ results, referenceImage }) {
           align-items: center;
           gap: 16px;
           padding: 16px;
-          background: linear-gradient(135deg, #dbeafe20, #eff6ff);
-          border: 2px solid #dbeafe;
+          background: linear-gradient(135deg, var(--secondary-bg, #eef2ff), #e0e7ff20);
+          border: 2px solid #e0e7ff;
           border-radius: 12px;
           margin-bottom: 24px;
         }
@@ -481,30 +482,31 @@ export default function ImageResultsDisplay({ results, referenceImage }) {
           height: 80px;
           object-fit: cover;
           border-radius: 8px;
-          border: 2px solid #3b82f6;
+          border: 2px solid var(--secondary, #6366f1);
         }
 
         .reference-info h4 {
           margin: 0 0 4px;
-          color: #1e40af;
+          color: var(--secondary-dark, #4f46e5);
         }
 
         .reference-info p {
           margin: 0;
           font-size: 0.9rem;
-          color: #666;
+          color: var(--gray-500, #64748b);
         }
 
         .criteria-info {
-          background: #f8fafc;
+          background: var(--gray-50, #f8fafc);
           border-radius: 12px;
           padding: 20px;
           margin-bottom: 24px;
+          border: 1px solid var(--gray-200, #e2e8f0);
         }
 
         .criteria-info h4 {
           margin: 0 0 16px;
-          color: #334155;
+          color: var(--gray-700, #334155);
           font-size: 1.1rem;
         }
 
@@ -520,18 +522,19 @@ export default function ImageResultsDisplay({ results, referenceImage }) {
           padding: 12px;
           background: white;
           border-radius: 8px;
+          border: 1px solid var(--gray-100, #f1f5f9);
         }
 
         .criteria-item strong {
           display: block;
           font-size: 0.9rem;
-          color: #333;
+          color: var(--gray-800, #1e293b);
           margin-bottom: 4px;
         }
 
         .criteria-item p {
           font-size: 0.8rem;
-          color: #666;
+          color: var(--gray-500, #64748b);
           margin: 0;
           line-height: 1.4;
         }
