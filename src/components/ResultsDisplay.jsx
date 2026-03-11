@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 const PROJECT_COLORS = [
   { bg: '#dcfce7', border: '#22c55e', text: '#166534', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
-  { bg: '#d1fae5', border: '#10b981', text: '#065f46', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
-  { bg: '#cffafe', border: '#06b6d4', text: '#155e75', gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)' },
+  { bg: '#fee2e2', border: '#ef4444', text: '#991b1b', gradient: 'linear-gradient(135deg, #ef4444, #dc2626)' },
+  { bg: '#dbeafe', border: '#3b82f6', text: '#1e40af', gradient: 'linear-gradient(135deg, #3b82f6, #2563eb)' },
   { bg: '#fef3c7', border: '#f59e0b', text: '#92400e', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
 ];
 

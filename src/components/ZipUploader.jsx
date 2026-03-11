@@ -3,8 +3,8 @@ import { FolderArchive, Plus, X, User, ImagePlus } from 'lucide-react';
 
 const PROJECT_COLORS = [
   { bg: '#dcfce7', border: '#22c55e', text: '#166534' },
-  { bg: '#d1fae5', border: '#10b981', text: '#065f46' },
-  { bg: '#cffafe', border: '#06b6d4', text: '#155e75' },
+  { bg: '#fee2e2', border: '#ef4444', text: '#991b1b' },
+  { bg: '#dbeafe', border: '#3b82f6', text: '#1e40af' },
   { bg: '#fef3c7', border: '#f59e0b', text: '#92400e' },
 ];
 
