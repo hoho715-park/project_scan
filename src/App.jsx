@@ -224,6 +224,7 @@ function App() {
       {isAnalyzing && (
         <LoadingScreen
           projectCount={mode === 'code' ? projects.length : projectImages.length}
+          mode={mode}
         />
       )}
 

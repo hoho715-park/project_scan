@@ -1,40 +1,74 @@
-import { Scan, FileSearch, BarChart3, CheckCircle } from 'lucide-react';
+import { Scan, FileSearch, BarChart3, CheckCircle, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const LOADING_STEPS = [
-  { icon: FileSearch, text: 'ZIP 파일 분석 중...', duration: 1500 },
-  { icon: Scan, text: '코드 구조 스캔 중...', duration: 2000 },
-  { icon: BarChart3, text: '유사도 계산 중...', duration: 1500 },
-  { icon: CheckCircle, text: '결과 생성 중...', duration: 1000 },
+  { icon: FileSearch, text: 'ZIP 파일 분석 중...', completeText: 'ZIP 파일 분석 완료' },
+  { icon: Scan, text: '코드 구조 스캔 중...', completeText: '코드 구조 스캔 완료' },
+  { icon: BarChart3, text: '유사도 계산 중...', completeText: '유사도 계산 완료' },
+  { icon: CheckCircle, text: '결과 생성 중...', completeText: '결과 생성 완료' },
 ];
 
-export default function LoadingScreen({ projectCount }) {
+export default function LoadingScreen({ projectCount, mode = 'code' }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState([]);
+
+  // 모드에 따른 스텝 텍스트
+  const steps = mode === 'image'
+    ? [
+        { icon: FileSearch, text: '이미지 로딩 중...', completeText: '이미지 로딩 완료' },
+        { icon: Scan, text: '픽셀 분석 중...', completeText: '픽셀 분석 완료' },
+        { icon: BarChart3, text: '유사도 계산 중...', completeText: '유사도 계산 완료' },
+        { icon: CheckCircle, text: '결과 생성 중...', completeText: '결과 생성 완료' },
+      ]
+    : LOADING_STEPS;
 
   useEffect(() => {
-    const totalDuration = LOADING_STEPS.reduce((sum, step) => sum + step.duration, 0);
-    let elapsed = 0;
+    // 각 단계별 시간 (총 5.5초로 설정하여 6초 minLoadingTime보다 약간 빠르게)
+    const stepDuration = mode === 'image' ? 900 : 1300; // 이미지 모드는 더 빠르게
+    const totalSteps = steps.length;
 
-    const interval = setInterval(() => {
-      elapsed += 50;
-      const newProgress = Math.min((elapsed / totalDuration) * 100, 100);
-      setProgress(newProgress);
+    let stepIndex = 0;
 
-      let accumulatedDuration = 0;
-      for (let i = 0; i < LOADING_STEPS.length; i++) {
-        accumulatedDuration += LOADING_STEPS[i].duration;
-        if (elapsed < accumulatedDuration) {
-          setCurrentStep(i);
-          break;
-        }
+    // 첫 번째 단계 시작
+    setCurrentStep(0);
+    setProgress(5);
+
+    const stepInterval = setInterval(() => {
+      stepIndex++;
+
+      if (stepIndex < totalSteps) {
+        // 이전 단계 완료 처리
+        setCompletedSteps(prev => [...prev, stepIndex - 1]);
+        // 다음 단계로 이동
+        setCurrentStep(stepIndex);
+        // 진행률 업데이트
+        setProgress(Math.round((stepIndex / totalSteps) * 85) + 10);
+      } else if (stepIndex === totalSteps) {
+        // 마지막 단계 완료
+        setCompletedSteps(prev => [...prev, stepIndex - 1]);
+        setProgress(95);
       }
-    }, 50);
+    }, stepDuration);
 
-    return () => clearInterval(interval);
-  }, []);
+    // 부드러운 진행률 업데이트
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        const target = Math.round((currentStep / totalSteps) * 85) + 10;
+        if (prev < target) {
+          return Math.min(prev + 1, target);
+        }
+        return prev;
+      });
+    }, 100);
 
-  const CurrentIcon = LOADING_STEPS[currentStep]?.icon || Scan;
+    return () => {
+      clearInterval(stepInterval);
+      clearInterval(progressInterval);
+    };
+  }, [mode]);
+
+  const CurrentIcon = steps[currentStep]?.icon || Scan;
 
   return (
     <div className="loading-overlay">
@@ -48,10 +82,10 @@ export default function LoadingScreen({ projectCount }) {
         <p className="loading-subtitle">{projectCount}개의 프로젝트를 분석하고 있습니다</p>
 
         <div className="loading-steps">
-          {LOADING_STEPS.map((step, index) => {
+          {steps.map((step, index) => {
             const StepIcon = step.icon;
-            const isActive = index === currentStep;
-            const isComplete = index < currentStep;
+            const isActive = index === currentStep && !completedSteps.includes(index);
+            const isComplete = completedSteps.includes(index);
 
             return (
               <div
@@ -59,9 +93,10 @@ export default function LoadingScreen({ projectCount }) {
                 className={`loading-step ${isActive ? 'active' : ''} ${isComplete ? 'complete' : ''}`}
               >
                 <div className="step-icon">
-                  <StepIcon size={18} />
+                  {isComplete ? <Check size={18} /> : <StepIcon size={18} />}
                 </div>
-                <span>{step.text}</span>
+                <span>{isComplete ? step.completeText : step.text}</span>
+                {isComplete && <Check size={16} className="check-mark" />}
               </div>
             );
           })}
@@ -169,18 +204,25 @@ export default function LoadingScreen({ projectCount }) {
           border-radius: 12px;
           background: #f5f5f5;
           color: #999;
-          transition: all 0.3s ease;
+          transition: all 0.4s ease;
         }
 
         .loading-step.active {
           background: linear-gradient(135deg, #d1fae5, #a7f3d0);
           color: var(--primary-darker, #16a34a);
           font-weight: 500;
+          animation: stepPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes stepPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3); }
+          50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
         }
 
         .loading-step.complete {
           background: #f0fdf4;
           color: var(--primary-dark, #22c55e);
+          border: 1px solid #bbf7d0;
         }
 
         .step-icon {
@@ -191,6 +233,8 @@ export default function LoadingScreen({ projectCount }) {
           align-items: center;
           justify-content: center;
           background: white;
+          flex-shrink: 0;
+          transition: all 0.3s ease;
         }
 
         .loading-step.active .step-icon {
@@ -199,8 +243,29 @@ export default function LoadingScreen({ projectCount }) {
         }
 
         .loading-step.complete .step-icon {
-          background: var(--primary-light, #86efac);
-          color: var(--primary-darker, #16a34a);
+          background: var(--primary-dark, #22c55e);
+          color: white;
+        }
+
+        .loading-step span {
+          flex: 1;
+          text-align: left;
+        }
+
+        .check-mark {
+          color: var(--primary-dark, #22c55e);
+          animation: checkAppear 0.3s ease-out;
+        }
+
+        @keyframes checkAppear {
+          from {
+            transform: scale(0);
+            opacity: 0;
+          }
+          to {
+            transform: scale(1);
+            opacity: 1;
+          }
         }
 
         .progress-container {
@@ -221,7 +286,7 @@ export default function LoadingScreen({ projectCount }) {
           height: 100%;
           background: linear-gradient(90deg, var(--primary, #4ade80), var(--primary-dark, #22c55e));
           border-radius: 4px;
-          transition: width 0.1s linear;
+          transition: width 0.3s ease;
         }
 
         .progress-text {
