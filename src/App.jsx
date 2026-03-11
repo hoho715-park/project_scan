@@ -217,10 +217,6 @@ function App() {
         )}
       </main>
 
-      <footer className="app-footer">
-        <p>Project Scan - UI 유사도 분석 도구</p>
-      </footer>
-
       {isAnalyzing && (
         <LoadingScreen
           projectCount={mode === 'code' ? projects.length : projectImages.length}

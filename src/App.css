@@ -242,19 +242,6 @@
   border-color: var(--gray-400);
 }
 
-/* Footer */
-.app-footer {
-  background: var(--gray-800);
-  padding: 20px;
-  text-align: center;
-}
-
-.app-footer p {
-  color: var(--gray-300);
-  font-size: 0.9rem;
-  margin: 0;
-}
-
 /* Responsive */
 @media (max-width: 900px) {
   .app-header {
