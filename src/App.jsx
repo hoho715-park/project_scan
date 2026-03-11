@@ -1,35 +1,127 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { Scan, Play, Loader, HelpCircle, RotateCcw } from 'lucide-react';
+import ImageUploader from './components/ImageUploader';
+import ZipUploader from './components/ZipUploader';
+import ResultsDisplay from './components/ResultsDisplay';
+import EvaluationCriteria from './components/EvaluationCriteria';
+import { compareProjects } from './utils/similarityAnalyzer';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [referenceImage, setReferenceImage] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [results, setResults] = useState(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [showCriteria, setShowCriteria] = useState(false);
+
+  const canAnalyze = referenceImage && projects.length >= 1;
+
+  const handleAnalyze = async () => {
+    if (!canAnalyze) return;
+
+    setIsAnalyzing(true);
+    setResults(null);
+
+    try {
+      const analysisResults = await compareProjects(referenceImage, projects);
+      // 기준 이미지 파일 참조 추가
+      analysisResults.referenceImage.file = referenceImage;
+      setResults(analysisResults);
+    } catch (error) {
+      console.error('분석 중 오류 발생:', error);
+      alert('분석 중 오류가 발생했습니다: ' + error.message);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handleReset = () => {
+    setReferenceImage(null);
+    setProjects([]);
+    setResults(null);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="app">
+      <header className="app-header">
+        <div className="header-content">
+          <div className="logo">
+            <Scan size={36} />
+            <h1>Project Scan</h1>
+          </div>
+          <p className="tagline">UI 디자인과 프로젝트 코드의 유사도를 분석합니다</p>
+        </div>
+        <button className="help-btn" onClick={() => setShowCriteria(true)}>
+          <HelpCircle size={20} />
+          평가 기준
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </header>
+
+      <main className="app-main">
+        {!results ? (
+          <>
+            <div className="upload-section">
+              <div className="upload-grid">
+                <ImageUploader
+                  onImageSelect={setReferenceImage}
+                  selectedImage={referenceImage}
+                />
+                <ZipUploader
+                  projects={projects}
+                  onProjectsChange={setProjects}
+                  maxProjects={4}
+                />
+              </div>
+            </div>
+
+            <div className="action-section">
+              <button
+                className={`analyze-btn ${canAnalyze ? 'active' : ''}`}
+                onClick={handleAnalyze}
+                disabled={!canAnalyze || isAnalyzing}
+              >
+                {isAnalyzing ? (
+                  <>
+                    <Loader size={24} className="spin" />
+                    분석 중...
+                  </>
+                ) : (
+                  <>
+                    <Play size={24} />
+                    분석 시작
+                  </>
+                )}
+              </button>
+              {!canAnalyze && (
+                <p className="help-text">
+                  기준 UI 이미지와 최소 1개의 프로젝트 ZIP 파일을 업로드하세요
+                </p>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="results-section">
+            <ResultsDisplay results={results} />
+            <div className="reset-section">
+              <button className="reset-btn" onClick={handleReset}>
+                <RotateCcw size={20} />
+                새로운 분석 시작
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
+
+      <footer className="app-footer">
+        <p>Project Scan &copy; 2024 - UI 유사도 분석 도구</p>
+      </footer>
+
+      <EvaluationCriteria
+        isOpen={showCriteria}
+        onClose={() => setShowCriteria(false)}
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
