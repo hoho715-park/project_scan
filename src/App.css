@@ -125,6 +125,12 @@
   border: 2px solid var(--secondary);
 }
 
+.mode-badge.quality {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  color: #92400e;
+  border: 2px solid #f59e0b;
+}
+
 /* Upload Section */
 .upload-section {
   margin-bottom: 40px;
@@ -174,6 +180,15 @@
 
 .analyze-btn.image.active:hover {
   box-shadow: 0 10px 40px rgba(99, 102, 241, 0.5);
+}
+
+.analyze-btn.quality.active {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 6px 30px rgba(245, 158, 11, 0.4);
+}
+
+.analyze-btn.quality.active:hover {
+  box-shadow: 0 10px 40px rgba(245, 158, 11, 0.5);
 }
 
 .analyze-btn:disabled {
@@ -228,6 +243,16 @@
 
 .reset-btn:hover {
   background: var(--primary);
+  color: white;
+}
+
+.reset-btn.quality {
+  color: #92400e;
+  border-color: #f59e0b;
+}
+
+.reset-btn.quality:hover {
+  background: #f59e0b;
   color: white;
 }
 

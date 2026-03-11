@@ -14,18 +14,30 @@ export default function LoadingScreen({ projectCount, mode = 'code' }) {
   const [completedSteps, setCompletedSteps] = useState([]);
 
   // 모드에 따른 스텝 텍스트
-  const steps = mode === 'image'
-    ? [
+  const getSteps = () => {
+    if (mode === 'image') {
+      return [
         { icon: FileSearch, text: '이미지 로딩 중...', completeText: '이미지 로딩 완료' },
         { icon: Scan, text: '픽셀 분석 중...', completeText: '픽셀 분석 완료' },
         { icon: BarChart3, text: '유사도 계산 중...', completeText: '유사도 계산 완료' },
         { icon: CheckCircle, text: '결과 생성 중...', completeText: '결과 생성 완료' },
-      ]
-    : LOADING_STEPS;
+      ];
+    } else if (mode === 'quality') {
+      return [
+        { icon: FileSearch, text: 'ZIP 파일 분석 중...', completeText: 'ZIP 파일 분석 완료' },
+        { icon: Scan, text: '코드 파싱 중...', completeText: '코드 파싱 완료' },
+        { icon: BarChart3, text: '품질 지표 계산 중...', completeText: '품질 지표 계산 완료' },
+        { icon: CheckCircle, text: '결과 생성 중...', completeText: '결과 생성 완료' },
+      ];
+    }
+    return LOADING_STEPS;
+  };
+
+  const steps = getSteps();
 
   useEffect(() => {
-    // 각 단계별 시간 (총 5.5초로 설정하여 6초 minLoadingTime보다 약간 빠르게)
-    const stepDuration = mode === 'image' ? 900 : 1300; // 이미지 모드는 더 빠르게
+    // 각 단계별 시간
+    const stepDuration = mode === 'image' ? 900 : mode === 'quality' ? 700 : 1300;
     const totalSteps = steps.length;
 
     let stepIndex = 0;

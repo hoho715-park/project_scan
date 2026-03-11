@@ -6,10 +6,12 @@ import ZipUploader from './components/ZipUploader';
 import ImageCompareUploader from './components/ImageCompareUploader';
 import ResultsDisplay from './components/ResultsDisplay';
 import ImageResultsDisplay from './components/ImageResultsDisplay';
+import QualityResultsDisplay from './components/QualityResultsDisplay';
 import EvaluationCriteria from './components/EvaluationCriteria';
 import LoadingScreen from './components/LoadingScreen';
 import { compareProjects } from './utils/similarityAnalyzer';
 import { compareMultipleImages } from './utils/imageComparator';
+import { compareProjectsQuality } from './utils/codeQualityAnalyzer';
 import './App.css';
 
 function App() {
@@ -24,6 +26,9 @@ function App() {
   const [imageReference, setImageReference] = useState(null);
   const [projectImages, setProjectImages] = useState([]);
 
+  // 코드 품질 비교용 상태
+  const [qualityProjects, setQualityProjects] = useState([]);
+
   // 공통 상태
   const [results, setResults] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -31,6 +36,7 @@ function App() {
 
   const canAnalyzeCode = referenceImage && projects.length >= 1;
   const canAnalyzeImage = imageReference && projectImages.length >= 1;
+  const canAnalyzeQuality = qualityProjects.length >= 1;
 
   const handleAnalyzeCode = async () => {
     if (!canAnalyzeCode) return;
@@ -73,6 +79,26 @@ function App() {
     }
   };
 
+  const handleAnalyzeQuality = async () => {
+    if (!canAnalyzeQuality) return;
+
+    setIsAnalyzing(true);
+    setResults(null);
+
+    try {
+      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 3000));
+      const analysisPromise = compareProjectsQuality(qualityProjects);
+      const [analysisResults] = await Promise.all([analysisPromise, minLoadingTime]);
+
+      setResults(analysisResults);
+    } catch (error) {
+      console.error('분석 중 오류 발생:', error);
+      alert('분석 중 오류가 발생했습니다: ' + error.message);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   const handleReset = () => {
     setResults(null);
   };
@@ -83,6 +109,7 @@ function App() {
     setProjects([]);
     setImageReference(null);
     setProjectImages([]);
+    setQualityProjects([]);
     setResults(null);
   };
 
@@ -182,6 +209,37 @@ function App() {
           </>
         )}
 
+        {/* 코드 품질 비교 모드 */}
+        {mode === 'quality' && !results && (
+          <>
+            <div className="mode-badge quality">코드 품질 비교</div>
+            <div className="upload-section">
+              <ZipUploader
+                projects={qualityProjects}
+                onProjectsChange={setQualityProjects}
+                maxProjects={4}
+                hideResultImage={true}
+              />
+            </div>
+
+            <div className="action-section">
+              <button
+                className={`analyze-btn quality ${canAnalyzeQuality ? 'active' : ''}`}
+                onClick={handleAnalyzeQuality}
+                disabled={!canAnalyzeQuality || isAnalyzing}
+              >
+                <Play size={24} />
+                품질 분석 시작
+              </button>
+              {!canAnalyzeQuality && (
+                <p className="help-text">
+                  최소 1개의 프로젝트 ZIP 파일을 업로드하세요
+                </p>
+              )}
+            </div>
+          </>
+        )}
+
         {/* 코드 비교 결과 */}
         {mode === 'code' && results && (
           <div className="results-section">
@@ -215,11 +273,28 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* 코드 품질 비교 결과 */}
+        {mode === 'quality' && results && (
+          <div className="results-section">
+            <QualityResultsDisplay results={results} />
+            <div className="reset-section">
+              <button className="reset-btn quality" onClick={handleReset}>
+                <RotateCcw size={20} />
+                다시 분석하기
+              </button>
+              <button className="reset-btn secondary" onClick={handleBackToModeSelect}>
+                <ArrowLeft size={20} />
+                모드 선택으로
+              </button>
+            </div>
+          </div>
+        )}
       </main>
 
       {isAnalyzing && (
         <LoadingScreen
-          projectCount={mode === 'code' ? projects.length : projectImages.length}
+          projectCount={mode === 'code' ? projects.length : mode === 'quality' ? qualityProjects.length : projectImages.length}
           mode={mode}
         />
       )}

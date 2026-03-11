@@ -8,7 +8,7 @@ const PROJECT_COLORS = [
   { bg: '#fef3c7', border: '#f59e0b', text: '#92400e' },
 ];
 
-export default function ZipUploader({ projects, onProjectsChange, maxProjects = 4 }) {
+export default function ZipUploader({ projects, onProjectsChange, maxProjects = 4, hideResultImage = false }) {
   const fileInputRef = useRef(null);
   const imageInputRefs = useRef({});
   const [isDragging, setIsDragging] = useState(false);
@@ -164,39 +164,41 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
               </div>
               <p className="project-filename">{project.name}.zip</p>
 
-              {/* 결과 이미지 업로드 영역 */}
-              <div className="result-image-section">
-                {!project.resultImagePreview ? (
-                  <div
-                    className="image-upload-zone"
-                    onClick={() => imageInputRefs.current[project.id]?.click()}
-                  >
-                    <ImagePlus size={20} />
-                    <span>결과 스크린샷 추가</span>
-                    <input
-                      ref={(el) => (imageInputRefs.current[project.id] = el)}
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleImageSelect(project.id, e)}
-                      style={{ display: 'none' }}
-                    />
-                  </div>
-                ) : (
-                  <div className="image-preview-container">
-                    <img
-                      src={project.resultImagePreview}
-                      alt="결과 이미지"
-                      className="result-image-preview"
-                    />
-                    <button
-                      className="remove-image-btn"
-                      onClick={() => handleRemoveImage(project.id)}
+              {/* 결과 이미지 업로드 영역 (hideResultImage가 false일 때만 표시) */}
+              {!hideResultImage && (
+                <div className="result-image-section">
+                  {!project.resultImagePreview ? (
+                    <div
+                      className="image-upload-zone"
+                      onClick={() => imageInputRefs.current[project.id]?.click()}
                     >
-                      <X size={14} />
-                    </button>
-                  </div>
-                )}
-              </div>
+                      <ImagePlus size={20} />
+                      <span>결과 스크린샷 추가</span>
+                      <input
+                        ref={(el) => (imageInputRefs.current[project.id] = el)}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleImageSelect(project.id, e)}
+                        style={{ display: 'none' }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="image-preview-container">
+                      <img
+                        src={project.resultImagePreview}
+                        alt="결과 이미지"
+                        className="result-image-preview"
+                      />
+                      <button
+                        className="remove-image-btn"
+                        onClick={() => handleRemoveImage(project.id)}
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>
