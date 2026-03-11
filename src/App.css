@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -27,12 +27,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #667eea;
+  color: var(--primary-dark);
 }
 
 .logo h1 {
   font-size: 1.8rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -49,7 +49,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
   color: white;
   border: none;
   padding: 10px 20px;
@@ -58,12 +58,12 @@
   font-size: 0.95rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
 }
 
 .help-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
 }
 
 /* Main */
@@ -107,38 +107,25 @@
 }
 
 .analyze-btn.active {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
   cursor: pointer;
-  box-shadow: 0 6px 30px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 30px rgba(34, 197, 94, 0.4);
 }
 
 .analyze-btn.active:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 10px 40px rgba(34, 197, 94, 0.5);
 }
 
 .analyze-btn:disabled {
   opacity: 0.7;
 }
 
-.spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .help-text {
   margin-top: 16px;
-  color: white;
+  color: #2d5a3d;
   font-size: 0.95rem;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 /* Results Section */
@@ -167,8 +154,8 @@
   align-items: center;
   gap: 8px;
   background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: var(--primary-dark);
+  border: 2px solid var(--primary-dark);
   padding: 12px 32px;
   border-radius: 25px;
   font-size: 1rem;
@@ -178,19 +165,19 @@
 }
 
 .reset-btn:hover {
-  background: #667eea;
+  background: var(--primary-dark);
   color: white;
 }
 
 /* Footer */
 .app-footer {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: center;
 }
 
 .app-footer p {
-  color: rgba(255, 255, 255, 0.8);
+  color: #2d5a3d;
   font-size: 0.9rem;
   margin: 0;
 }

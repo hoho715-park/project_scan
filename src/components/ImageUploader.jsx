@@ -105,7 +105,7 @@ export default function ImageUploader({ onImageSelect, selectedImage }) {
           background: white;
           border-radius: 16px;
           padding: 24px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
         }
 
         .uploader-title {
@@ -124,23 +124,23 @@ export default function ImageUploader({ onImageSelect, selectedImage }) {
         }
 
         .upload-zone {
-          border: 2px dashed #667eea;
+          border: 2px dashed var(--primary-dark, #22c55e);
           border-radius: 12px;
           padding: 40px 20px;
           text-align: center;
           cursor: pointer;
           transition: all 0.3s ease;
-          background: #f8f9ff;
+          background: #f0fdf4;
         }
 
         .upload-zone:hover,
         .upload-zone.dragging {
-          border-color: #764ba2;
-          background: #f0f0ff;
+          border-color: var(--secondary, #059669);
+          background: #dcfce7;
         }
 
         .upload-icon {
-          color: #667eea;
+          color: var(--primary-dark, #22c55e);
           margin-bottom: 16px;
         }
 

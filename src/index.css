@@ -3,14 +3,24 @@
   line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: light;
   color: #1a1a2e;
-  background-color: #f8f9fa;
+  background-color: #f0f7f4;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Green Theme Colors */
+  --primary: #4ade80;
+  --primary-dark: #22c55e;
+  --primary-darker: #16a34a;
+  --primary-light: #86efac;
+  --primary-lighter: #bbf7d0;
+  --primary-bg: #f0fdf4;
+  --secondary: #059669;
+  --accent: #10b981;
 }
 
 * {
@@ -21,7 +31,7 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
 }
 
 #root {

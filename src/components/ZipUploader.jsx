@@ -1,15 +1,16 @@
 import { useRef, useState } from 'react';
-import { FolderArchive, Plus, X, User } from 'lucide-react';
+import { FolderArchive, Plus, X, User, ImagePlus } from 'lucide-react';
 
 const PROJECT_COLORS = [
-  { bg: '#e3f2fd', border: '#2196f3', text: '#1565c0' },
-  { bg: '#f3e5f5', border: '#9c27b0', text: '#7b1fa2' },
-  { bg: '#e8f5e9', border: '#4caf50', text: '#2e7d32' },
-  { bg: '#fff3e0', border: '#ff9800', text: '#e65100' },
+  { bg: '#dcfce7', border: '#22c55e', text: '#166534' },
+  { bg: '#d1fae5', border: '#10b981', text: '#065f46' },
+  { bg: '#cffafe', border: '#06b6d4', text: '#155e75' },
+  { bg: '#fef3c7', border: '#f59e0b', text: '#92400e' },
 ];
 
 export default function ZipUploader({ projects, onProjectsChange, maxProjects = 4 }) {
   const fileInputRef = useRef(null);
+  const imageInputRefs = useRef({});
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDragOver = (e) => {
@@ -60,6 +61,8 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
       file,
       name: file.name.replace('.zip', ''),
       displayName: `프로젝트 ${String.fromCharCode(65 + projects.length + index)}`,
+      resultImage: null,
+      resultImagePreview: null,
     }));
 
     onProjectsChange([...projects, ...newProjects]);
@@ -71,7 +74,6 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
 
   const handleRemoveProject = (id) => {
     const updatedProjects = projects.filter((p) => p.id !== id);
-    // 프로젝트 이름 재할당
     const renamedProjects = updatedProjects.map((p, index) => ({
       ...p,
       displayName: `프로젝트 ${String.fromCharCode(65 + index)}`,
@@ -82,6 +84,36 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
   const handleNameChange = (id, newName) => {
     const updatedProjects = projects.map((p) =>
       p.id === id ? { ...p, displayName: newName } : p
+    );
+    onProjectsChange(updatedProjects);
+  };
+
+  const handleImageSelect = (projectId, e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('이미지 파일만 업로드할 수 있습니다.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const updatedProjects = projects.map((p) =>
+        p.id === projectId
+          ? { ...p, resultImage: file, resultImagePreview: e.target.result }
+          : p
+      );
+      onProjectsChange(updatedProjects);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = (projectId) => {
+    const updatedProjects = projects.map((p) =>
+      p.id === projectId
+        ? { ...p, resultImage: null, resultImagePreview: null }
+        : p
     );
     onProjectsChange(updatedProjects);
   };
@@ -98,7 +130,6 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
         비교할 프로젝트 ZIP 파일을 업로드하세요 (최대 {maxProjects}개)
       </p>
 
-      {/* 업로드된 프로젝트 목록 */}
       {projects.length > 0 && (
         <div className="projects-list">
           {projects.map((project, index) => (
@@ -132,12 +163,45 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
                 </button>
               </div>
               <p className="project-filename">{project.name}.zip</p>
+
+              {/* 결과 이미지 업로드 영역 */}
+              <div className="result-image-section">
+                {!project.resultImagePreview ? (
+                  <div
+                    className="image-upload-zone"
+                    onClick={() => imageInputRefs.current[project.id]?.click()}
+                  >
+                    <ImagePlus size={20} />
+                    <span>결과 스크린샷 추가</span>
+                    <input
+                      ref={(el) => (imageInputRefs.current[project.id] = el)}
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageSelect(project.id, e)}
+                      style={{ display: 'none' }}
+                    />
+                  </div>
+                ) : (
+                  <div className="image-preview-container">
+                    <img
+                      src={project.resultImagePreview}
+                      alt="결과 이미지"
+                      className="result-image-preview"
+                    />
+                    <button
+                      className="remove-image-btn"
+                      onClick={() => handleRemoveImage(project.id)}
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* 업로드 영역 */}
       {canAddMore && (
         <div
           className={`upload-zone ${isDragging ? 'dragging' : ''}`}
@@ -177,7 +241,7 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
           background: white;
           border-radius: 16px;
           padding: 24px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
         }
 
         .uploader-title {
@@ -265,24 +329,81 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
           margin-left: 38px;
         }
 
+        .result-image-section {
+          margin-top: 12px;
+          margin-left: 38px;
+        }
+
+        .image-upload-zone {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 14px;
+          border: 2px dashed rgba(0, 0, 0, 0.2);
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          color: #666;
+          font-size: 0.85rem;
+        }
+
+        .image-upload-zone:hover {
+          border-color: var(--primary-dark, #22c55e);
+          color: var(--primary-dark, #22c55e);
+          background: rgba(34, 197, 94, 0.05);
+        }
+
+        .image-preview-container {
+          position: relative;
+          display: inline-block;
+        }
+
+        .result-image-preview {
+          max-width: 100%;
+          max-height: 120px;
+          border-radius: 8px;
+          border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-image-btn {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: #e74c3c;
+          color: white;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s ease;
+        }
+
+        .remove-image-btn:hover {
+          transform: scale(1.1);
+        }
+
         .upload-zone {
-          border: 2px dashed #667eea;
+          border: 2px dashed var(--primary-dark, #22c55e);
           border-radius: 12px;
           padding: 30px 20px;
           text-align: center;
           cursor: pointer;
           transition: all 0.3s ease;
-          background: #f8f9ff;
+          background: #f0fdf4;
         }
 
         .upload-zone:hover,
         .upload-zone.dragging {
-          border-color: #764ba2;
-          background: #f0f0ff;
+          border-color: var(--secondary, #059669);
+          background: #dcfce7;
         }
 
         .upload-icon {
-          color: #667eea;
+          color: var(--primary-dark, #22c55e);
           margin-bottom: 12px;
         }
 
@@ -300,9 +421,9 @@ export default function ZipUploader({ projects, onProjectsChange, maxProjects = 
         .max-reached {
           text-align: center;
           padding: 16px;
-          background: #f0f0f0;
+          background: #f0fdf4;
           border-radius: 8px;
-          color: #666;
+          color: #166534;
           font-size: 0.9rem;
         }
       `}</style>

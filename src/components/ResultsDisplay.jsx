@@ -1,18 +1,18 @@
-import { Trophy, Medal, Star, ChevronDown, ChevronUp, Palette, Layout, Code, FileCode } from 'lucide-react';
+import { Trophy, Medal, Star, ChevronDown, ChevronUp, Palette, Layout, Code, FileCode, ImageIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const PROJECT_COLORS = [
-  { bg: '#e3f2fd', border: '#2196f3', text: '#1565c0', gradient: 'linear-gradient(135deg, #2196f3, #1976d2)' },
-  { bg: '#f3e5f5', border: '#9c27b0', text: '#7b1fa2', gradient: 'linear-gradient(135deg, #9c27b0, #7b1fa2)' },
-  { bg: '#e8f5e9', border: '#4caf50', text: '#2e7d32', gradient: 'linear-gradient(135deg, #4caf50, #388e3c)' },
-  { bg: '#fff3e0', border: '#ff9800', text: '#e65100', gradient: 'linear-gradient(135deg, #ff9800, #f57c00)' },
+  { bg: '#dcfce7', border: '#22c55e', text: '#166534', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+  { bg: '#d1fae5', border: '#10b981', text: '#065f46', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+  { bg: '#cffafe', border: '#06b6d4', text: '#155e75', gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)' },
+  { bg: '#fef3c7', border: '#f59e0b', text: '#92400e', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
 ];
 
 const RANK_ICONS = [
   { icon: Trophy, color: '#ffd700' },
   { icon: Medal, color: '#c0c0c0' },
   { icon: Medal, color: '#cd7f32' },
-  { icon: Star, color: '#667eea' },
+  { icon: Star, color: '#22c55e' },
 ];
 
 function ScoreCircle({ score, size = 120, strokeWidth = 8, color }) {
@@ -28,7 +28,7 @@ function ScoreCircle({ score, size = 120, strokeWidth = 8, color }) {
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#e0e0e0"
+          stroke="#e0f2e9"
           strokeWidth={strokeWidth}
         />
         <circle
@@ -77,10 +77,10 @@ function BreakdownItem({ icon: Icon, title, score, maxScore, details, color }) {
   );
 }
 
-function ProjectResult({ project, index, isExpanded, onToggle }) {
+function ProjectResult({ project, index, isExpanded, onToggle, projectData }) {
   const colorScheme = PROJECT_COLORS[index % PROJECT_COLORS.length];
   const RankIcon = RANK_ICONS[project.rank - 1]?.icon || Star;
-  const rankColor = RANK_ICONS[project.rank - 1]?.color || '#667eea';
+  const rankColor = RANK_ICONS[project.rank - 1]?.color || '#22c55e';
 
   if (project.error) {
     return (
@@ -125,6 +125,21 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
 
       {isExpanded && (
         <div className="result-details">
+          {/* 프로젝트 결과 이미지 */}
+          {projectData?.resultImagePreview && (
+            <div className="project-result-image">
+              <h5>
+                <ImageIcon size={16} />
+                프로젝트 결과 스크린샷
+              </h5>
+              <img
+                src={projectData.resultImagePreview}
+                alt={`${project.name} 결과`}
+                className="result-screenshot"
+              />
+            </div>
+          )}
+
           <h5>세부 평가 항목</h5>
           <div className="breakdown-list">
             <BreakdownItem
@@ -133,7 +148,7 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
               score={project.breakdown.colorSimilarity.score}
               maxScore={project.breakdown.colorSimilarity.maxScore}
               details={project.breakdown.colorSimilarity.details}
-              color="#e91e63"
+              color="#ec4899"
             />
             <BreakdownItem
               icon={Layout}
@@ -141,7 +156,7 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
               score={project.breakdown.layoutSimilarity.score}
               maxScore={project.breakdown.layoutSimilarity.maxScore}
               details={project.breakdown.layoutSimilarity.details}
-              color="#2196f3"
+              color="#06b6d4"
             />
             <BreakdownItem
               icon={FileCode}
@@ -149,7 +164,7 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
               score={project.breakdown.structureSimilarity.score}
               maxScore={project.breakdown.structureSimilarity.maxScore}
               details={project.breakdown.structureSimilarity.details}
-              color="#4caf50"
+              color="#22c55e"
             />
             <BreakdownItem
               icon={Code}
@@ -157,7 +172,7 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
               score={project.breakdown.componentSimilarity.score}
               maxScore={project.breakdown.componentSimilarity.maxScore}
               details={project.breakdown.componentSimilarity.details}
-              color="#ff9800"
+              color="#f59e0b"
             />
           </div>
 
@@ -197,7 +212,7 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
         }
 
         .project-result:hover {
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
         .project-result.error {
@@ -271,7 +286,7 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
         }
 
         .expand-btn {
-          background: #f5f5f5;
+          background: #f0fdf4;
           border: none;
           border-radius: 50%;
           width: 36px;
@@ -281,22 +296,38 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
           justify-content: center;
           cursor: pointer;
           transition: background 0.2s ease;
+          color: #166534;
         }
 
         .expand-btn:hover {
-          background: #e0e0e0;
+          background: #dcfce7;
         }
 
         .result-details {
           padding: 0 20px 20px;
-          border-top: 1px solid #eee;
-          background: #fafafa;
+          border-top: 1px solid #e0f2e9;
+          background: #f0fdf4;
         }
 
         .result-details h5 {
+          display: flex;
+          align-items: center;
+          gap: 8px;
           margin: 16px 0 12px;
-          color: #333;
+          color: #166534;
           font-size: 1rem;
+        }
+
+        .project-result-image {
+          margin-bottom: 20px;
+        }
+
+        .result-screenshot {
+          max-width: 100%;
+          max-height: 300px;
+          border-radius: 12px;
+          border: 2px solid #dcfce7;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .breakdown-list {
@@ -330,7 +361,7 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
 
         .breakdown-bar-container {
           height: 6px;
-          background: #e0e0e0;
+          background: #e0f2e9;
           border-radius: 3px;
           overflow: hidden;
           margin-bottom: 6px;
@@ -375,20 +406,25 @@ function ProjectResult({ project, index, isExpanded, onToggle }) {
         .summary-value {
           font-size: 1.1rem;
           font-weight: 600;
-          color: #333;
+          color: #166534;
         }
       `}</style>
     </div>
   );
 }
 
-export default function ResultsDisplay({ results }) {
+export default function ResultsDisplay({ results, originalProjects }) {
   const [expandedId, setExpandedId] = useState(null);
 
   if (!results) return null;
 
   const handleToggle = (id) => {
     setExpandedId(expandedId === id ? null : id);
+  };
+
+  // 원본 프로젝트 데이터에서 이미지 찾기
+  const getProjectData = (projectName) => {
+    return originalProjects?.find(p => p.name === projectName || p.displayName === projectName);
   };
 
   return (
@@ -421,6 +457,7 @@ export default function ResultsDisplay({ results }) {
             index={index}
             isExpanded={expandedId === project.id}
             onToggle={() => handleToggle(project.id)}
+            projectData={getProjectData(project.name)}
           />
         ))}
       </div>
@@ -430,7 +467,7 @@ export default function ResultsDisplay({ results }) {
           background: white;
           border-radius: 20px;
           padding: 32px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
         .results-header {
@@ -440,7 +477,7 @@ export default function ResultsDisplay({ results }) {
 
         .results-header h2 {
           font-size: 1.8rem;
-          color: #1a1a2e;
+          color: #166534;
           margin-bottom: 8px;
         }
 
@@ -453,7 +490,8 @@ export default function ResultsDisplay({ results }) {
           align-items: center;
           gap: 16px;
           padding: 16px;
-          background: linear-gradient(135deg, #667eea20, #764ba220);
+          background: linear-gradient(135deg, #dcfce720, #a7f3d020);
+          border: 2px solid #dcfce7;
           border-radius: 12px;
           margin-bottom: 24px;
         }
@@ -463,12 +501,12 @@ export default function ResultsDisplay({ results }) {
           height: 80px;
           object-fit: cover;
           border-radius: 8px;
-          border: 2px solid #667eea;
+          border: 2px solid #22c55e;
         }
 
         .reference-info h4 {
           margin: 0 0 4px;
-          color: #333;
+          color: #166534;
         }
 
         .reference-info p {

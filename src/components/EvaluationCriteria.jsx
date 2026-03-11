@@ -148,7 +148,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -163,7 +163,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             max-width: 800px;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
           }
 
           .modal-header {
@@ -171,7 +171,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             align-items: center;
             justify-content: space-between;
             padding: 24px 32px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #e0f2e9;
             position: sticky;
             top: 0;
             background: white;
@@ -183,7 +183,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             align-items: center;
             gap: 12px;
             font-size: 1.5rem;
-            color: #1a1a2e;
+            color: #166534;
             margin: 0;
           }
 
@@ -217,13 +217,13 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
             align-items: center;
             gap: 8px;
             margin-bottom: 12px;
-            color: #667eea;
+            color: #22c55e;
           }
 
           .section-header h3 {
             margin: 0;
             font-size: 1.2rem;
-            color: #1a1a2e;
+            color: #166534;
           }
 
           .criteria-section > p {
@@ -244,23 +244,23 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .criteria-card.color {
-            background: #fce4ec;
-            border-color: #e91e63;
+            background: #fdf2f8;
+            border-color: #ec4899;
           }
 
           .criteria-card.layout {
-            background: #e3f2fd;
-            border-color: #2196f3;
+            background: #ecfeff;
+            border-color: #06b6d4;
           }
 
           .criteria-card.structure {
-            background: #e8f5e9;
-            border-color: #4caf50;
+            background: #f0fdf4;
+            border-color: #22c55e;
           }
 
           .criteria-card.component {
-            background: #fff3e0;
-            border-color: #ff9800;
+            background: #fffbeb;
+            border-color: #f59e0b;
           }
 
           .card-icon {
@@ -275,19 +275,19 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .color .card-icon {
-            background: #e91e63;
+            background: #ec4899;
           }
 
           .layout .card-icon {
-            background: #2196f3;
+            background: #06b6d4;
           }
 
           .structure .card-icon {
-            background: #4caf50;
+            background: #22c55e;
           }
 
           .component .card-icon {
-            background: #ff9800;
+            background: #f59e0b;
           }
 
           .criteria-card h4 {
@@ -328,7 +328,7 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .file-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
             padding: 6px 14px;
             border-radius: 20px;
@@ -337,14 +337,15 @@ export default function EvaluationCriteria({ isOpen, onClose }) {
           }
 
           .criteria-section.note {
-            background: #f5f5f5;
+            background: #f0fdf4;
             padding: 20px;
             border-radius: 12px;
+            border: 1px solid #dcfce7;
           }
 
           .criteria-section.note h3 {
             margin: 0 0 12px;
-            color: #666;
+            color: #166534;
             font-size: 1rem;
           }
 

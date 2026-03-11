@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Scan, Play, Loader, HelpCircle, RotateCcw } from 'lucide-react';
+import { Scan, Play, HelpCircle, RotateCcw } from 'lucide-react';
 import ImageUploader from './components/ImageUploader';
 import ZipUploader from './components/ZipUploader';
 import ResultsDisplay from './components/ResultsDisplay';
 import EvaluationCriteria from './components/EvaluationCriteria';
+import LoadingScreen from './components/LoadingScreen';
 import { compareProjects } from './utils/similarityAnalyzer';
 import './App.css';
 
@@ -23,7 +24,13 @@ function App() {
     setResults(null);
 
     try {
-      const analysisResults = await compareProjects(referenceImage, projects);
+      // 최소 로딩 시간 보장 (애니메이션을 위해)
+      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 6000));
+
+      const analysisPromise = compareProjects(referenceImage, projects);
+
+      const [analysisResults] = await Promise.all([analysisPromise, minLoadingTime]);
+
       // 기준 이미지 파일 참조 추가
       analysisResults.referenceImage.file = referenceImage;
       setResults(analysisResults);
@@ -80,17 +87,8 @@ function App() {
                 onClick={handleAnalyze}
                 disabled={!canAnalyze || isAnalyzing}
               >
-                {isAnalyzing ? (
-                  <>
-                    <Loader size={24} className="spin" />
-                    분석 중...
-                  </>
-                ) : (
-                  <>
-                    <Play size={24} />
-                    분석 시작
-                  </>
-                )}
+                <Play size={24} />
+                분석 시작
               </button>
               {!canAnalyze && (
                 <p className="help-text">
@@ -101,7 +99,7 @@ function App() {
           </>
         ) : (
           <div className="results-section">
-            <ResultsDisplay results={results} />
+            <ResultsDisplay results={results} originalProjects={projects} />
             <div className="reset-section">
               <button className="reset-btn" onClick={handleReset}>
                 <RotateCcw size={20} />
@@ -113,8 +111,10 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>Project Scan &copy; 2024 - UI 유사도 분석 도구</p>
+        <p>Project Scan - UI 유사도 분석 도구</p>
       </footer>
+
+      {isAnalyzing && <LoadingScreen projectCount={projects.length} />}
 
       <EvaluationCriteria
         isOpen={showCriteria}
